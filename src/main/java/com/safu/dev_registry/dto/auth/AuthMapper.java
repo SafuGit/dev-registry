@@ -19,5 +19,6 @@ public interface AuthMapper {
   @Mapping(source = "id", target = "id")
   @Mapping(source = "username", target = "username")
   @Mapping(source = "email", target = "email")
+  @Mapping(target = "token", ignore = true)
   AuthResponse toAuthResponse(User user);
 }
