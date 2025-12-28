@@ -1,5 +1,10 @@
 package com.safu.dev_registry.dto.auth;
 
-public class AuthResponse {
+import lombok.Data;
 
+@Data
+public class AuthResponse {
+    private long id;
+    private String username;
+    private String email;
 }
