@@ -8,6 +8,8 @@ import com.safu.dev_registry.repositories.UserRepository;
 public class AuthService {
   public final UserRepository userRepository;
 
+  
+
   public AuthService(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
