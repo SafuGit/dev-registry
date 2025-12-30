@@ -9,7 +9,7 @@
     <div class="card">
       <h2>Login</h2>
       <p th:if="${error}" th:text="${error}" class="error"></p>
-      <form th:action="@{/login}" th:object="${LoginRequest}" method="post">
+      <form th:action="@{/auth/login}" th:object="${LoginRequest}" method="post">
         <label>Email</label>
         <input
           type="text"
