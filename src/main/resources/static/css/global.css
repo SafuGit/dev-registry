@@ -1,0 +1,132 @@
+/* ===== Base Reset ===== */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* ===== Page Background ===== */
+body {
+    background-color: #e6d8a8; /* yellow-brown page */
+    color: #2b1b0f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 20px;
+}
+
+/* ===== Headings ===== */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 10px 0;
+    font-weight: bold;
+    color: #4a2e12;
+}
+
+h1 {
+    font-size: 22px;
+    border-bottom: 2px solid #8b6b3f;
+    padding-bottom: 6px;
+}
+
+h2 { font-size: 18px; }
+h3 { font-size: 16px; }
+
+/* ===== Text ===== */
+p {
+    margin: 0 0 12px 0;
+}
+
+/* ===== Links (classic web) ===== */
+a {
+    color: #0033cc;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #663399;
+}
+
+a:hover {
+    background-color: #fff2a8;
+    text-decoration: none;
+}
+
+/* ===== 90s Card / Panel ===== */
+.card {
+    background-color: #f7f1dc; /* paper card */
+    border: 2px solid #8b6b3f;
+    box-shadow: 3px 3px 0 #bfa36a;
+
+    padding: 16px;
+    margin-bottom: 16px;
+    width: fit-content;
+}
+
+/* Slight variant */
+.card--dark {
+    background-color: #efe2b8;
+}
+
+/* ===== Forms ===== */
+form {
+    margin: 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+/* ===== Inputs ===== */
+input,
+select,
+textarea {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 5px;
+
+    background-color: #fffdf4;
+    border: 2px inset #8b6b3f;
+    color: #2b1b0f;
+
+    margin-bottom: 12px;
+    width: 260px;
+}
+
+textarea {
+    width: 420px;
+    height: 120px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    margin-right: 6px;
+}
+
+/* ===== Focus ===== */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    background-color: #fff7cc;
+}
+
+/* ===== Tables (very nostalgic) ===== */
+table {
+    border-collapse: collapse;
+    background-color: #f7f1dc;
+    margin-bottom: 16px;
+}
+
+td, th {
+    border: 1px solid #8b6b3f;
+    padding: 6px 10px;
+}
+
+/* ===== Horizontal Rule ===== */
+hr {
+    border: none;
+    border-top: 2px solid #8b6b3f;
+    margin: 20px 0;
+}

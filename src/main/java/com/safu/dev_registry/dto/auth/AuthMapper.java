@@ -4,11 +4,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.safu.dev_registry.models.User;
+import java.sql.Date;
 
+@SuppressWarnings("unused")
 @Mapper(componentModel = "spring")
 public interface AuthMapper {
   @Mapping(target = "id", ignore = true)
-  @Mapping(target = "createdAt", expression = "java(new Date(System.currentTimeMillis()))")
+  @Mapping(target = "createdAt", expression = "java(new java.sql.Date(System.currentTimeMillis()))")
   User toUser(RegisterRequest registerRequest);
 
   @Mapping(target = "id", ignore = true)
