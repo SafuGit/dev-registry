@@ -57,19 +57,29 @@ public class AuthService {
   }
 
   public ResponseEntity<AuthResponse> login(LoginRequest request) {
+    System.out.println("(AuthService): Starting user login for email: " + request.getEmail());
     try {
+      System.out.println("(AuthService): Checking if user exists with email: " + request.getEmail());
       if (!userRepository.existsByEmail(request.getEmail())) {
+        System.out.println("(AuthService): User does not exist with email: " + request.getEmail());
         return ResponseEntity.badRequest().build();
       }
+      System.out.println("(AuthService): Retrieving user from repository");
       User user = userRepository.findByEmail(request.getEmail()).get();
+      System.out.println("(AuthService): Verifying password for user: " + user.getEmail());
       if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        System.out.println("(AuthService): Password mismatch for user: " + user.getEmail());
         return ResponseEntity.badRequest().build();
       }
+      System.out.println("(AuthService): Generating JWT token for user: " + user.getEmail());
       String token = jwtService.generateToken(user);
+      System.out.println("(AuthService): Creating auth response");
       AuthResponse response = authMapper.toAuthResponse(user);
       response.setToken(token);
+      System.out.println("(AuthService): Login successful for user: " + user.getEmail());
       return ResponseEntity.ok(response);
     } catch (Exception e) {
+      System.out.println("(AuthService): Exception occurred during login: " + e.getMessage());
       return ResponseEntity.internalServerError().build();
     }
   }
