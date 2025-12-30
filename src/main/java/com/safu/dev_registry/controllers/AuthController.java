@@ -5,12 +5,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.safu.dev_registry.dto.auth.LoginRequest;
 import com.safu.dev_registry.dto.auth.RegisterRequest;
 import com.safu.dev_registry.services.AuthService;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+
 
 
 @Controller
@@ -30,4 +32,11 @@ public class AuthController {
     model.addAttribute("RegisterRequest", new RegisterRequest());
     return "/auth/register";
   }
+
+  @GetMapping("/login")
+  public String getMethodName(Model model) {
+    model.addAttribute("loginRequest", new LoginRequest());
+    return "/auth/login";
+  }
+  
 }

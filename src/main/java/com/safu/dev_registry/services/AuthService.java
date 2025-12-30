@@ -22,25 +22,35 @@ public class AuthService {
   private final JWTService jwtService;
 
   public ResponseEntity<AuthResponse> register(RegisterRequest request) {
+    System.out.println("(AuthService): Starting user registration for email: " + request.getEmail());
     try {
+      System.out.println("(AuthService): Checking if user exists with email: " + request.getEmail());
       if (userRepository.existsByEmail(request.getEmail())) {
+        System.out.println("(AuthService): User already exists with email: " + request.getEmail());
         return ResponseEntity.badRequest().build();
       }
 
+      System.out.println("(AuthService): Mapping register request to user");
       User user = authMapper.toUser(request);
+      System.out.println("(AuthService): Encoding password for user: " + user.getEmail());
       user.setPassword(
         passwordEncoder.encode(request.getPassword())
       );
 
+      System.out.println("(AuthService): Saving user to repository");
       user = userRepository.save(user);
 
+      System.out.println("(AuthService): Generating JWT token for user: " + user.getEmail());
       String token = jwtService.generateToken(user);
 
+      System.out.println("(AuthService): Creating auth response");
       AuthResponse response = authMapper.toAuthResponse(user);
       response.setToken(token);
 
+      System.out.println("(AuthService): Registration successful for user: " + user.getEmail());
       return ResponseEntity.ok(response);
     } catch (Exception e) {
+      System.out.println("(AuthService): Exception occurred during registration: " + e.getMessage());
       return ResponseEntity.internalServerError().build();
     }
   }
