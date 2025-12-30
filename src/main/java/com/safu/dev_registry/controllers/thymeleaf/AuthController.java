@@ -1,4 +1,4 @@
-package com.safu.dev_registry.controllers;
+package com.safu.dev_registry.controllers.thymeleaf;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +27,12 @@ public class AuthController {
     return "redirect:/auth/login";
   }
 
+  @PostMapping("/login")
+  public String loginUser(@ModelAttribute LoginRequest user) {
+    authService.login(user);
+    return "redirect:/";
+  }
+
   @GetMapping("/register")
   public String getRegisterPage(Model model) {
     model.addAttribute("RegisterRequest", new RegisterRequest());
@@ -34,9 +40,8 @@ public class AuthController {
   }
 
   @GetMapping("/login")
-  public String getMethodName(Model model) {
-    model.addAttribute("loginRequest", new LoginRequest());
+  public String getLoginPage(Model model) {
+    model.addAttribute("LoginRequest", new LoginRequest());
     return "/auth/login";
   }
-  
 }
