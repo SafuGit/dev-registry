@@ -6,9 +6,15 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
   @Bean
   PasswordEncoder passwordEncoder() {
@@ -20,8 +26,10 @@ public class SecurityConfig {
     http
         .csrf(csrf -> csrf.disable()) // disable CSRF
         .authorizeHttpRequests(auth -> auth
-            .anyRequest().permitAll() // allow all requests
+            .requestMatchers("/auth/login", "/auth/register", "/css/**", "/js/**").permitAll() // allow public endpoints
+            .anyRequest().authenticated() // require auth for others
         )
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .formLogin(form -> form.disable()) // disable login page
         .httpBasic(httpBasic -> httpBasic.disable()); // disable basic auth
     return http.build();
