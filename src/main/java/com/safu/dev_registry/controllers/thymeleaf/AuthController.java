@@ -60,4 +60,15 @@ public class AuthController {
     model.addAttribute("LoginRequest", new LoginRequest());
     return "/auth/login";
   }
+
+  @GetMapping("/logout")
+  public String logout(HttpServletResponse response) {
+    // Clear the JWT cookie
+    Cookie jwtCookie = new Cookie("jwt", "");
+    jwtCookie.setHttpOnly(true);
+    jwtCookie.setPath("/");
+    jwtCookie.setMaxAge(0); // Expire immediately
+    response.addCookie(jwtCookie);
+    return "redirect:/auth/login";
+  }
 }

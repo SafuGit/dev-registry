@@ -46,6 +46,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     if (jwt == null) {
+      System.out.println("No JWT found in header or cookie");
       filterChain.doFilter(request, response);
       return;
     }
@@ -56,6 +57,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
       if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
         if (jwtService.isTokenValid(jwt)) {
+          System.out.println("JWT is valid, setting authentication for: " + userEmail);
           UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
               userDetails,
               null,
@@ -63,9 +65,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           );
           authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authToken);
+        } else {
+          System.out.println("JWT is invalid");
         }
       }
     } catch (Exception e) {
+      System.out.println("Exception validating JWT: " + e.getMessage());
       // Invalid token, continue without authentication
     }
 
