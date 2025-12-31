@@ -16,4 +16,9 @@ public class DashboardController {
       return "redirect:/auth/login";
     }
   }
+
+  @GetMapping("/addproject")
+  public String getAddProjectPage() {
+    return "project/add";
+  }
 }
