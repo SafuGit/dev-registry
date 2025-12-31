@@ -1,5 +1,7 @@
 package com.safu.dev_registry.controllers.thymeleaf;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -7,6 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class DashboardController {
   @GetMapping("/")
   public String getDashboard() {
-    return "index";
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    if (auth != null && auth.isAuthenticated()) {
+      return "index";
+    } else {
+      return "redirect:/auth/login";
+    }
   }
 }

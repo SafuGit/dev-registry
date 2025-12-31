@@ -1,6 +1,7 @@
 package com.safu.dev_registry.config;
 
 import com.safu.dev_registry.models.User;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,6 +33,23 @@ public class JWTService {
         .claim("username", user.getUsername())
         .signWith(getSigningKey())
         .compact();
+  }
+
+  public Claims getClaimsFromToken(String token) {
+    return Jwts.parser()
+        .verifyWith(getSigningKey())
+        .build()
+        .parseSignedClaims(token)
+        .getPayload();
+  }
+
+  public boolean isTokenValid(String token) {
+    try {
+      Claims claims = getClaimsFromToken(token);
+      return !claims.getExpiration().before(new Date());
+    } catch (Exception e) {
+      return false;
+    }
   }
 
   private SecretKey getSigningKey() {
