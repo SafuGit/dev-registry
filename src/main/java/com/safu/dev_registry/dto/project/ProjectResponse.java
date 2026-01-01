@@ -14,4 +14,5 @@ public class ProjectResponse {
   private List<String> repoUrls;
   private List<String> stack;
   private List<String> features;
+  private long user_id;
 }
