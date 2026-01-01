@@ -9,4 +9,6 @@ import com.safu.dev_registry.models.Project;
 public interface ProjectMapper {
   @Mapping(target = "id", ignore = true)
   Project toProject(AddProjectRequest addProjectRequest);
+
+  ProjectResponse toProjectResponse(Project project);
 }
