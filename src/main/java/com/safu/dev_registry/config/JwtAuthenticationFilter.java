@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
     String path = request.getRequestURI();
-    return path.startsWith("/api/");
+    return path.startsWith("/api/") || path.startsWith("/actuator");
   }
 
   @Override
@@ -66,8 +66,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
               userDetails,
               null,
-              userDetails.getAuthorities()
-          );
+              userDetails.getAuthorities());
           authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authToken);
         } else {
