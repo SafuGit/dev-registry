@@ -1,5 +1,6 @@
 package com.safu.dev_registry.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -39,5 +40,11 @@ public class ProjectService {
       projectRepository.save(project);
       ProjectResponse response = projectMapper.toProjectResponse(project);
       return ResponseEntity.ok(response);
+    }
+
+    public ResponseEntity<List<ProjectResponse>> getProjectsByUserId(long userId) {
+      List<Project> projects = projectRepository.findByUserId(userId);
+      List<ProjectResponse> responses = projectMapper.toProjectResponseList(projects);
+      return ResponseEntity.ok(responses);
     }
 }
