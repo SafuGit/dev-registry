@@ -52,7 +52,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     if (jwt == null) {
-      System.out.println("No JWT found in header or cookie");
       filterChain.doFilter(request, response);
       return;
     }

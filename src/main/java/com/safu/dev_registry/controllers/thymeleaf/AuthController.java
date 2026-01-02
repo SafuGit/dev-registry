@@ -52,13 +52,13 @@ public class AuthController {
   @GetMapping("/register")
   public String getRegisterPage(Model model) {
     model.addAttribute("RegisterRequest", new RegisterRequest());
-    return "/auth/register";
+    return "auth/register";
   }
 
   @GetMapping("/login")
   public String getLoginPage(Model model) {
     model.addAttribute("LoginRequest", new LoginRequest());
-    return "/auth/login";
+    return "auth/login";
   }
 
   @GetMapping("/logout")
