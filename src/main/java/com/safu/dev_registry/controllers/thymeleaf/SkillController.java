@@ -26,7 +26,7 @@ public class SkillController {
 
   @PostMapping("/add")
   public String addSkill(@ModelAttribute AddSkillRequest addSkillRequest) {
-    skillService.addSkill(addSkillRequest);
+    skillService.addSkills(addSkillRequest);
     return "redirect:/";
   }
 }

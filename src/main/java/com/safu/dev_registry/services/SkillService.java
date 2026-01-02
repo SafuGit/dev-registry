@@ -31,7 +31,7 @@ public class SkillService {
       "^(.+?)\\s*\\(category:\\s*(.+?)\\)\\s*\\(iconUrl:\\s*(.+?)\\)\\s*\\(isConfident:\\s*(true|false)\\)$"
   );
 
-  public ResponseEntity<String> addSkill(AddSkillRequest request) {
+  public ResponseEntity<String> addSkills(AddSkillRequest request) {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     if (authentication == null || !authentication.isAuthenticated()) {
       return ResponseEntity.status(401).body("Unauthorized");
@@ -41,13 +41,16 @@ public class SkillService {
       return ResponseEntity.status(401).body("User not found");
     }
 
-    Skill skill = parseSkill(request.getSkillInput());
-    if (skill == null) {
-      return ResponseEntity.badRequest().body("Invalid skill format");
+    String[] skillInputs = request.getSkillInput().split(",");
+    for (String input : skillInputs) {
+      Skill skill = parseSkill(input.trim());
+      if (skill == null) {
+        return ResponseEntity.badRequest().body("Invalid skill format: " + input);
+      }
+      skill.setUser(user.get());
+      skillRepository.save(skill);
     }
-    skill.setUser(user.get());
-    skillRepository.save(skill);
-    return ResponseEntity.ok("Skill added successfully");
+    return ResponseEntity.ok("Skills added successfully");
   }
 
   private Skill parseSkill(String input) {

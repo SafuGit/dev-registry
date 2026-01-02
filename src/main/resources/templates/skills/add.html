@@ -6,11 +6,11 @@
     <link rel="stylesheet" th:href="@{/css/global.css}">
 </head>
 <body>
-    <h1>Add a New Skill</h1>
+    <h1>Add Skills</h1>
     <form th:action="@{/skills/add}" method="post">
-        <label for="skillInput">Skill (format: {name} (category: {category}) (iconUrl: {iconUrl}) (isConfident: true/false)):</label><br>
-        <input type="text" id="skillInput" name="skillInput" placeholder="e.g., Java (category: Programming) (iconUrl: https://example.com/java.png) (isConfident: true)" required style="width: 100%;"><br><br>
-        <button type="submit">Add Skill</button>
+        <label for="skillInput">Skills (format: {name} (category: {category}) (iconUrl: {iconUrl}) (isConfident: true/false), separated by commas):</label><br>
+        <input type="text" id="skillInput" name="skillInput" placeholder="e.g., Java (category: Programming) (iconUrl: https://example.com/java.png) (isConfident: true), Python (category: Programming) (iconUrl: https://example.com/python.png) (isConfident: false)" required style="width: 100%;"><br><br>
+        <button type="submit">Add Skills</button>
     </form>
     <br>
     <a th:href="@{/}">Back to Dashboard</a>
