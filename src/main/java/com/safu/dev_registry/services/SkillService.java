@@ -11,6 +11,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.safu.dev_registry.dto.skill.AddSkillRequest;
+import com.safu.dev_registry.dto.skill.SkillMapper;
+import com.safu.dev_registry.dto.skill.SkillResponse;
 import com.safu.dev_registry.models.Skill;
 import com.safu.dev_registry.models.User;
 import com.safu.dev_registry.repositories.SkillRepository;
@@ -23,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 public class SkillService {
   private final SkillRepository skillRepository;
   private final UserRepository userRepository;
+  private final SkillMapper skillMapper;
 
   private static final Pattern SKILL_PATTERN = Pattern.compile(
       "^(.+?)\\s*\\(category:\\s*(.+?)\\)\\s*\\(iconUrl:\\s*(.+?)\\)\\s*\\(isConfident:\\s*(true|false)\\)$"
@@ -60,8 +63,9 @@ public class SkillService {
     return null;
   }
 
-  public ResponseEntity<List<Skill>> getSkillsByUserId(long userId) {
+  public ResponseEntity<List<SkillResponse>> getSkillsByUserId(long userId) {
     List<Skill> skills = skillRepository.findByUserId(userId);
-    return ResponseEntity.ok(skills);
+    List<SkillResponse> skillResponses = skillMapper.toSkillResponseList(skills);
+    return ResponseEntity.ok(skillResponses);
   }
 }
