@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Add Project</title>
+    <link rel="stylesheet" href="/css/global.css" />
+  </head>
+
+  <body>
+    <h1>Add Project</h1>
+
+    <div class="card">
+      <form
+        th:action="@{/project/add}"
+        th:object="${addProjectRequest}"
+        method="post"
+      >
+        <!-- Project Name -->
+        <label>Project Name</label>
+        <input
+          type="text"
+          th:field="*{name}"
+          placeholder="Project name"
+          required
+        />
+
+        <!-- Description -->
+        <label>Description</label>
+        <textarea
+          th:field="*{description}"
+          placeholder="Short project description"
+        ></textarea>
+
+        <hr />
+
+        <!-- Image URLs (comma separated) -->
+        <label>Image URLs</label>
+        <textarea
+          name="imageUrls"
+          placeholder="https://img1.png, https://img2.png"
+        ></textarea>
+        <p>
+          <small>Separate multiple URLs with commas</small>
+        </p>
+
+        <!-- Live Project URL -->
+        <label>Project URL</label>
+        <input
+          type="url"
+          th:field="*{projectUrl}"
+          placeholder="https://example.com"
+        />
+
+        <hr />
+
+        <!-- Repository URLs -->
+        <label>Repository URLs</label>
+        <textarea
+          name="repoUrls"
+          placeholder="https://github.com/user/repo, https://gitlab.com/repo"
+        ></textarea>
+
+        <hr />
+
+        <!-- Tech Stack -->
+        <label>Tech Stack</label>
+        <textarea
+          name="stack"
+          placeholder="Java, Spring Boot, MongoDB, Docker"
+        ></textarea>
+
+        <hr />
+
+        <!-- Features -->
+        <label>Features</label>
+        <textarea
+          name="features"
+          placeholder="Authentication, Dashboard, API integration"
+        ></textarea>
+
+        <hr />
+
+        <!-- Actions -->
+        <button type="submit">Save Project</button>
+        <a href="/dashboard">Cancel</a>
+      </form>
+    </div>
+  </body>
+</html>

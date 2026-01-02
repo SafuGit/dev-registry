@@ -25,6 +25,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   private final UserDetailsService userDetailsService;
 
   @Override
+  protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    String path = request.getRequestURI();
+    return path.startsWith("/api/");
+  }
+
+  @Override
   protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     final String authHeader = request.getHeader("Authorization");
@@ -46,6 +52,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     if (jwt == null) {
+      System.out.println("No JWT found in header or cookie");
       filterChain.doFilter(request, response);
       return;
     }
@@ -63,9 +70,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
           );
           authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
           SecurityContextHolder.getContext().setAuthentication(authToken);
+        } else {
+          System.out.println("JWT is invalid");
         }
       }
     } catch (Exception e) {
+      System.out.println("Exception validating JWT: " + e.getMessage());
       // Invalid token, continue without authentication
     }
 
