@@ -24,7 +24,9 @@ public class Skill {
   private String category;
   private String iconUrl;
   private boolean isConfident;
-  private int priority;
+
+  @Column(name = "priority", nullable = true)
+  private Integer priority;
 
   @ManyToOne
   @JoinColumn(name = "user_id", nullable = false)
