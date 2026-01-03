@@ -1,6 +1,8 @@
 package com.safu.dev_registry.services;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
@@ -68,7 +70,22 @@ public class SkillService {
   }
 
   public ResponseEntity<List<SkillResponse>> getSkillsByUserId(long userId) {
+    return getSkillsByUserId(userId, Map.of());
+  }
+
+  public ResponseEntity<List<SkillResponse>> getSkillsByUserId(long userId, Map<String, Integer> categoryOrder) {
     List<Skill> skills = skillRepository.findByUserId(userId);
+    
+    // Apply dynamic sorting if category order is provided
+    if (!categoryOrder.isEmpty()) {
+      skills.sort(Comparator
+          .comparing((Skill s) -> categoryOrder.getOrDefault(s.getCategory(), 999))
+          .thenComparing(Skill::getPriority));
+    } else {
+      // Default sorting by priority only
+      skills.sort(Comparator.comparing(Skill::getPriority));
+    }
+    
     List<SkillResponse> skillResponses = skillMapper.toSkillResponseList(skills);
     return ResponseEntity.ok(skillResponses);
   }
