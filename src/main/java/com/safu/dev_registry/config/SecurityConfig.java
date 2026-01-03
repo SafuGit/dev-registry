@@ -46,14 +46,14 @@ public class SecurityConfig {
   @Bean
   CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();
-    configuration.setAllowedOrigins(List.of("*")); // allow all origins
-    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // allow all HTTP methods
-    configuration.setAllowedHeaders(List.of("*")); // allow all headers
-    configuration.setAllowCredentials(true); // allow credentials if needed
-    configuration.setExposedHeaders(List.of("Authorization", "Content-Type")); // optional, expose headers
+    configuration.setAllowedOriginPatterns(List.of("*")); // allow all origins
+    configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+    configuration.setAllowedHeaders(List.of("*"));
+    configuration.setAllowCredentials(true); // allow cookies/auth headers
+    configuration.setExposedHeaders(List.of("Authorization", "Content-Type"));
 
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration); // apply to all endpoints
+    source.registerCorsConfiguration("/**", configuration);
     return source;
   }
 }
