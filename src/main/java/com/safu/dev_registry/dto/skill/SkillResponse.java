@@ -10,4 +10,5 @@ public class SkillResponse {
   private String iconUrl;
   private boolean isConfident;
   private long userId;
+  private int priority;
 }

@@ -28,7 +28,7 @@ public class SkillService {
   private final SkillMapper skillMapper;
 
   private static final Pattern SKILL_PATTERN = Pattern.compile(
-      "^(.+?)\\s*\\(category:\\s*(.+?)\\)\\s*\\(iconUrl:\\s*(.+?)\\)\\s*\\(isConfident:\\s*(true|false)\\)$"
+      "^(.+?)\\s*\\(category:\\s*(.+?)\\)\\s*\\(iconUrl:\\s*(.+?)\\)\\s*\\(isConfident:\\s*(true|false)\\)\\s*\\(priority:\\s*(\\d+)\\)$"
   );
 
   public ResponseEntity<String> addSkills(AddSkillRequest request) {
@@ -61,6 +61,7 @@ public class SkillService {
       skill.setCategory(matcher.group(2).trim());
       skill.setIconUrl(matcher.group(3).trim());
       skill.setConfident(Boolean.parseBoolean(matcher.group(4).trim()));
+      skill.setPriority(Integer.parseInt(matcher.group(5).trim()));
       return skill;
     }
     return null;
