@@ -1,18 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <title>Add Skill</title>
-    <link rel="stylesheet" th:href="@{/css/global.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Skill - Dev Registry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-    <h1>Add Skills</h1>
-    <form th:action="@{/skills/add}" method="post">
-        <label for="skillInput">Skills (format: {name} (category: {category}) (iconUrl: {iconUrl}) (isConfident: true/false) (priority: {priority [1, 2, 3 etc.]}), separated by commas):</label><br>
-        <input type="text" id="skillInput" name="skillInput" placeholder="e.g., Java (category: Programming) (iconUrl: https://example.com/java.png) (isConfident: true) (priority: 1), Python (category: Programming) (iconUrl: https://example.com/python.png) (isConfident: false) (priority: 2)" required style="width: 100%;"><br><br>
-        <button type="submit">Add Skills</button>
-    </form>
-    <br>
-    <a th:href="@{/}">Back to Dashboard</a>
+<body class="bg-base-200">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-lg">
+      <div class="flex-1">
+        <a href="/" class="btn btn-ghost text-xl">Dev Registry</a>
+      </div>
+      <div class="flex-none">
+        <a href="/" class="btn btn-ghost">Back to Dashboard</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 max-w-3xl">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold">Add Skills</h1>
+        <p class="text-base-content/70 mt-2">Add your technical skills to your portfolio</p>
+      </div>
+
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <form th:action="@{/skills/add}" method="post" class="space-y-6">
+            <div class="form-control">
+              <label class="label" for="skillInput">
+                <span class="label-text font-semibold">Skills Input</span>
+                <span class="label-text-alt text-error">*Required</span>
+              </label>
+              <textarea 
+                id="skillInput" 
+                name="skillInput" 
+                class="textarea textarea-bordered h-32" 
+                placeholder="e.g., Java (category: Programming) (iconUrl: https://example.com/java.png) (isConfident: true) (priority: 1), Python (category: Programming) (iconUrl: https://example.com/python.png) (isConfident: false) (priority: 2)" 
+                required
+              ></textarea>
+              <label class="label">
+                <span class="label-text-alt">Format: {name} (category: {category}) (iconUrl: {iconUrl}) (isConfident: true/false) (priority: {number})</span>
+              </label>
+            </div>
+
+            <!-- Format Guide -->
+            <div class="alert alert-info">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+              <div>
+                <h3 class="font-bold">Input Format Guide</h3>
+                <div class="text-sm mt-2 space-y-1">
+                  <p>• Separate multiple skills with commas</p>
+                  <p>• Each skill should include: name, category, iconUrl, isConfident, and priority</p>
+                  <p>• Example categories: Programming, Framework, Database, Tool</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="flex gap-4">
+              <button type="submit" class="btn btn-primary flex-1">Add Skills</button>
+              <a th:href="@{/}" class="btn btn-outline flex-1">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
 </body>
 </html>
