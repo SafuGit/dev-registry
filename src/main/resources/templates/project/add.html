@@ -1,89 +1,155 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
-    <title>Add Project</title>
-    <link rel="stylesheet" href="/css/global.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Project - Dev Registry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.6.0/dist/full.min.css" rel="stylesheet" type="text/css" />
   </head>
 
-  <body>
-    <h1>Add Project</h1>
+  <body class="bg-base-200">
+    <!-- Navbar -->
+    <div class="navbar bg-base-100 shadow-lg">
+      <div class="flex-1">
+        <a href="/dashboard" class="btn btn-ghost text-xl">Dev Registry</a>
+      </div>
+      <div class="flex-none">
+        <a href="/dashboard" class="btn btn-ghost">Back to Dashboard</a>
+      </div>
+    </div>
 
-    <div class="card">
-      <form
-        th:action="@{/project/add}"
-        th:object="${addProjectRequest}"
-        method="post"
-      >
-        <!-- Project Name -->
-        <label>Project Name</label>
-        <input
-          type="text"
-          th:field="*{name}"
-          placeholder="Project name"
-          required
-        />
+    <!-- Main Content -->
+    <div class="container mx-auto p-6 max-w-3xl">
+      <div class="mb-6">
+        <h1 class="text-4xl font-bold">Add Project</h1>
+        <p class="text-base-content/70 mt-2">Create a new project entry in your portfolio</p>
+      </div>
 
-        <!-- Description -->
-        <label>Description</label>
-        <textarea
-          th:field="*{description}"
-          placeholder="Short project description"
-        ></textarea>
+      <div class="card bg-base-100 shadow-xl">
+        <div class="card-body">
+          <form
+            th:action="@{/project/add}"
+            th:object="${addProjectRequest}"
+            method="post"
+            class="space-y-6"
+          >
+            <!-- Project Name -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Project Name</span>
+                <span class="label-text-alt text-error">*Required</span>
+              </label>
+              <input
+                type="text"
+                th:field="*{name}"
+                placeholder="Enter project name"
+                class="input input-bordered w-full"
+                required
+              />
+            </div>
 
-        <hr />
+            <!-- Description -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Description</span>
+              </label>
+              <textarea
+                th:field="*{description}"
+                placeholder="Short project description"
+                class="textarea textarea-bordered h-24"
+              ></textarea>
+            </div>
 
-        <!-- Image URLs (comma separated) -->
-        <label>Image URLs</label>
-        <textarea
-          name="imageUrls"
-          placeholder="https://img1.png, https://img2.png"
-        ></textarea>
-        <p>
-          <small>Separate multiple URLs with commas</small>
-        </p>
+            <div class="divider">Media & Links</div>
 
-        <!-- Live Project URL -->
-        <label>Project URL</label>
-        <input
-          type="url"
-          th:field="*{projectUrl}"
-          placeholder="https://example.com"
-        />
+            <!-- Image URLs -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Image URLs</span>
+              </label>
+              <textarea
+                name="imageUrls"
+                placeholder="https://img1.png, https://img2.png"
+                class="textarea textarea-bordered h-20"
+              ></textarea>
+              <label class="label">
+                <span class="label-text-alt">Separate multiple URLs with commas</span>
+              </label>
+            </div>
 
-        <hr />
+            <!-- Live Project URL -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Project URL</span>
+              </label>
+              <input
+                type="url"
+                th:field="*{projectUrl}"
+                placeholder="https://example.com"
+                class="input input-bordered w-full"
+              />
+            </div>
 
-        <!-- Repository URLs -->
-        <label>Repository URLs</label>
-        <textarea
-          name="repoUrls"
-          placeholder="https://github.com/user/repo, https://gitlab.com/repo"
-        ></textarea>
+            <div class="divider">Repository</div>
 
-        <hr />
+            <!-- Repository URLs -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Repository URLs</span>
+              </label>
+              <textarea
+                name="repoUrls"
+                placeholder="https://github.com/user/repo, https://gitlab.com/repo"
+                class="textarea textarea-bordered h-20"
+              ></textarea>
+              <label class="label">
+                <span class="label-text-alt">Add GitHub, GitLab, or other repository links</span>
+              </label>
+            </div>
 
-        <!-- Tech Stack -->
-        <label>Tech Stack</label>
-        <textarea
-          name="stack"
-          placeholder="Java, Spring Boot, MongoDB, Docker"
-        ></textarea>
+            <div class="divider">Technical Details</div>
 
-        <hr />
+            <!-- Tech Stack -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Tech Stack</span>
+              </label>
+              <textarea
+                name="stack"
+                placeholder="Java, Spring Boot, MongoDB, Docker"
+                class="textarea textarea-bordered h-20"
+              ></textarea>
+              <label class="label">
+                <span class="label-text-alt">List technologies used, separated by commas</span>
+              </label>
+            </div>
 
-        <!-- Features -->
-        <label>Features</label>
-        <textarea
-          name="features"
-          placeholder="Authentication, Dashboard, API integration"
-        ></textarea>
+            <!-- Features -->
+            <div class="form-control">
+              <label class="label">
+                <span class="label-text font-semibold">Features</span>
+              </label>
+              <textarea
+                name="features"
+                placeholder="Authentication, Dashboard, API integration"
+                class="textarea textarea-bordered h-24"
+              ></textarea>
+              <label class="label">
+                <span class="label-text-alt">Key features of your project</span>
+              </label>
+            </div>
 
-        <hr />
+            <div class="divider"></div>
 
-        <!-- Actions -->
-        <button type="submit">Save Project</button>
-        <a href="/dashboard">Cancel</a>
-      </form>
+            <!-- Actions -->
+            <div class="flex gap-4">
+              <button type="submit" class="btn btn-primary flex-1">Save Project</button>
+              <a href="/dashboard" class="btn btn-outline flex-1">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
 </html>
